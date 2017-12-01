@@ -1,5 +1,5 @@
 ### 环境
-1. 确保安装bee工具已经beego环境
+1. 确保安装bee工具以及beego环境
 2. 编译安装protobuf编译器protoc `https://github.com/google/protobuf/releases`,将protoc命令加入环境变量
 3. 下载golang的protobuf依赖 `go get github.com/golang/protobuf/protoc-gen-go` `go get github.com/golang/protobuf/proto`
 
