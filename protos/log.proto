@@ -1,0 +1,9 @@
+syntax = "proto2";
+package protos;
+
+message LogMsg {
+required string GameId = 1;
+required string UserId = 2;
+required string Event = 3;
+optional string Ctime = 4;
+}

@@ -1,0 +1,34 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /api
+paths:
+  /log/:
+    get:
+      tags:
+      - log
+      description: get
+      operationId: LogController.create msg
+      responses:
+        "200":
+          description: '{string}'
+    post:
+      tags:
+      - log
+      description: record log
+      operationId: LogController.Record log
+      responses:
+        "403":
+          description: body is empty
+tags:
+- name: log
+  description: |
+    Operations about log
