@@ -5,4 +5,4 @@
 
 ### 启动
 1. 根目录下执行`bee generate docs`，生成swagger数据（如果不需要swagger文档，可不执行这一步
-2. 执行`bee run watchall true`，打开对应链接即可访问
+2. 执行`bee run watchall true`，打开对应链接`127.0.0.1:8082/swagger/`即可访问
