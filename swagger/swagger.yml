@@ -28,6 +28,24 @@ paths:
       responses:
         "403":
           description: body is empty
+  /log/client:
+    get:
+      tags:
+      - log
+      description: get
+      operationId: LogController.Client
+      responses:
+        "200":
+          description: '{string}'
+  /log/server:
+    get:
+      tags:
+      - log
+      description: get
+      operationId: LogController.Server
+      responses:
+        "200":
+          description: '{string}'
 tags:
 - name: log
   description: |

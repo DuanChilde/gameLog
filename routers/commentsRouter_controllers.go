@@ -23,4 +23,20 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["gameLog/controllers:LogController"] = append(beego.GlobalControllerRouter["gameLog/controllers:LogController"],
+		beego.ControllerComments{
+			Method: "Client",
+			Router: `/client`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["gameLog/controllers:LogController"] = append(beego.GlobalControllerRouter["gameLog/controllers:LogController"],
+		beego.ControllerComments{
+			Method: "Server",
+			Router: `/server`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 }

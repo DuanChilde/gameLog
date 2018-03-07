@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"gameLog/models"
 	"gameLog/protos"
+	"io/ioutil"
+	"net"
 	"net/http"
 	"time"
 
@@ -61,4 +63,64 @@ func (o *LogController) Get() {
 		beego.Debug(err)
 	}
 	defer resp.Body.Close()
+}
+
+// @Title Client
+// @Description get
+// @Success 200 {string}
+// @router /client [get]
+func (o *LogController) Client() {
+	service := ":7777"
+	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
+	checkError(err)
+	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	checkError(err)
+	_, err = conn.Write([]byte("hello world"))
+	checkError(err)
+	result, err := ioutil.ReadAll(conn)
+	checkError(err)
+	log := &protos.LogMsg{}
+	err = proto.Unmarshal(result, log)
+	if err != nil {
+		beego.Debug(err)
+	}
+	o.Data["json"] = res.Success(log.GetEvent(), map[string]interface{}{})
+	o.ServeJSON()
+}
+
+// @Title Server
+// @Description get
+// @Success 200 {string}
+// @router /server [get]
+func (o *LogController) Server() {
+	service := ":7777"
+	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
+	checkError(err)
+	listener, err := net.ListenTCP("tcp", tcpAddr)
+	checkError(err)
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			continue
+		}
+		log := &protos.LogMsg{
+			GameId: proto.String("pk365"),
+			UserId: proto.String("17"),
+			Event:  proto.String("login"),
+			Ctime:  proto.String(time.Now().Format("2006-01-02 15:04:05")),
+		}
+		data, err := proto.Marshal(log)
+		if err != nil {
+			beego.Debug(err)
+		}
+		//daytime := time.Now().Format("2006-01-02 15:04:05")
+		conn.Write(data) // don't care about return value
+		conn.Close()     // we're finished with this client
+	}
+}
+
+func checkError(err error) {
+	if err != nil {
+		beego.Debug(err)
+	}
 }
